@@ -2,9 +2,11 @@ package bg.sofia.fmi.uni.clubhub.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,4 +25,7 @@ public class ClubEntity extends UserEntity {
 
     @Column(name = "entrance_fee", nullable = false)
     private BigDecimal entranceFee;
+    
+    @OneToMany(mappedBy="club")
+    private Set<BookingEntity> bookings;
 }
