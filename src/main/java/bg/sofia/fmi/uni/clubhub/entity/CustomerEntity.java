@@ -1,7 +1,10 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -18,4 +21,7 @@ public class CustomerEntity extends UserEntity {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
+    
+    @OneToMany(mappedBy="customer")
+    private Set<BookingEntity> bookings;
 }
