@@ -10,4 +10,3 @@ public class ClubhubApplication {
 		SpringApplication.run(ClubhubApplication.class, args);
 	}
 }
-
