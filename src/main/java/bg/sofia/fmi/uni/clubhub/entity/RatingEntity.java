@@ -2,6 +2,7 @@ package bg.sofia.fmi.uni.clubhub.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import java.util.UUID;
@@ -20,6 +21,9 @@ public class RatingEntity {
         EXCELLENT, //
         ;
     }
+
+    @Id
+    private UUID id;
 
     @Column(name = "club_id", nullable = false)
     private UUID clubId;
