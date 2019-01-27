@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ENTITY")
+@Table(name = "EVENT")
 @Data
 public class EventEntity {
 
