@@ -29,9 +29,9 @@ public class DrinkEntity {
     @Column(name = "picture")
     private Blob Picture;
 
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private DrinkType Type;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String Description;
 }
