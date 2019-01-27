@@ -1,5 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -10,6 +11,8 @@ import java.util.Set;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Data
@@ -25,7 +28,10 @@ public class ClubEntity extends UserEntity {
 
     @Column(name = "entrance_fee", nullable = false)
     private BigDecimal entranceFee;
-    
-    @OneToMany(mappedBy="club")
+
+    @OneToMany(mappedBy = "club")
     private Set<BookingEntity> bookings;
+
+    @OneToMany(cascade = ALL, orphanRemoval = true)
+    private Set<RatingEntity> ratings;
 }
