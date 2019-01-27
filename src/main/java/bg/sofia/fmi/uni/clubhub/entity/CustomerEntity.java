@@ -22,6 +22,9 @@ public class CustomerEntity extends UserEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
     
+    @Column(name = "age", nullable = false)
+    private int age;
+    
     @OneToMany(mappedBy="customer")
     private Set<BookingEntity> bookings;
 }
