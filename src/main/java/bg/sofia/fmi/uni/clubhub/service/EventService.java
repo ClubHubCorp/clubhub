@@ -1,19 +1,24 @@
 package bg.sofia.fmi.uni.clubhub.service;
 
+import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toEntity;
+import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
+import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 import bg.sofia.fmi.uni.clubhub.repository.EventRepository;
 
-public class EventService implements IEventService{
-	
+public class EventService implements IEventService {
+
 	private final EventRepository eventRepository;
-	
+
 	@Autowired
 	public EventService(EventRepository eventRepository) {
 		this.eventRepository = eventRepository;
@@ -22,24 +27,27 @@ public class EventService implements IEventService{
 	@Override
 	public Optional<Event> getById(UUID id) {
 		return eventRepository.findById(id) //
-                .map(DataConverter::toModel);
+				.map(DataConverter::toModel);
 	}
 
 	@Override
 	public List<Event> getEventsThatContain(String word) {
-		// TODO Auto-generated method stub
-		return null;
+		List<EventEntity> entities = eventRepository.findByNameContaining(word);
+
+		return entities.stream().map(DataConverter::toModel)//
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public Event createNew(Event event) {
-		// TODO Auto-generated method stub
-		return null;
+		EventEntity entity = toEntity(event);
+		entity.setEntity_id(UUID.randomUUID());
+
+		return toModel(eventRepository.save(entity));
 	}
 
 	@Override
 	public void deleteById(UUID id) {
-		// TODO Auto-generated method stub
-		
+		eventRepository.deleteById(id);
 	}
 }
