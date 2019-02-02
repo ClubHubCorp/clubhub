@@ -29,7 +29,7 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping(value = "customers")
+@RequestMapping("customers")
 public class CustomerController {
 
     private final ICustomerService customerService;

@@ -26,6 +26,10 @@ public abstract class UserEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
+    public UserEntity(UUID id) {
+        this.id = id;
+    }
+
     public UserEntity(UUID id, String username, String password, String email) {
         this.id = id;
         this.username = username;

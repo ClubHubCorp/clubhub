@@ -65,5 +65,4 @@ public class BookingEntity {
 
     @Column(name = "attendance_status", nullable = false)
     private AttendanceStatus attendanceStatus;
-
 }
