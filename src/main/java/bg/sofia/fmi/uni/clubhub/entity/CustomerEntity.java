@@ -30,7 +30,7 @@ public class CustomerEntity extends UserEntity {
 
     @OneToMany(mappedBy = "customer")
     private Set<BookingEntity> bookings;
-
+    
     public CustomerEntity(UUID id, String username, String password, String email, String firstName, String lastName, int age,
             Set<BookingEntity> bookings) {
         super(id, username, password, email);

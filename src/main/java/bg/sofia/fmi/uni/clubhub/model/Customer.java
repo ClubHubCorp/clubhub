@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -23,23 +24,24 @@ public class Customer {
     private UUID id;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 5, max = 255)
     private final String username;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 5, max = 255)
     private final String password;
 
     @NotNull
     @Email
+    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
     private final String email;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 5, max = 255)
     private final String firstName;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 5, max = 255)
     private final String lastName;
 
     @Positive
