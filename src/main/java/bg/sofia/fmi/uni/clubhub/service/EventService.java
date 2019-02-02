@@ -14,7 +14,9 @@ import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 import bg.sofia.fmi.uni.clubhub.repository.EventRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EventService implements IEventService {
 
 	private final EventRepository eventRepository;
@@ -32,7 +34,7 @@ public class EventService implements IEventService {
 
 	@Override
 	public List<Event> getEventsThatContain(String word) {
-		List<EventEntity> entities = eventRepository.findByNameContaining(word);
+		List<EventEntity> entities = eventRepository.findByNameIgnoreCaseContaining(word);
 
 		return entities.stream().map(DataConverter::toModel)//
 				.collect(Collectors.toList());
