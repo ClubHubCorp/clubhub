@@ -12,6 +12,5 @@ import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 @Repository
 public interface EventRepository extends JpaRepository<EventEntity, UUID> {
 	
-	@Query("Select e from EVENT e where e.name like %:word%")
-	List<EventEntity> findByNameContaining(String word);
+	List<EventEntity> findByNameIgnoreCaseContaining(String word);
 }
