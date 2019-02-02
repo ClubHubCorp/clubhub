@@ -39,12 +39,13 @@ public class ClubEntity extends UserEntity {
     private Set<EventEntity> events;
 
     public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
-                      BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings) {
+                      BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings, Set<EventEntity> events) {
         super(id, username, password, email);
         this.address = address;
         this.capacity = capacity;
         this.entranceFee = entranceFee;
         this.bookings = bookings;
         this.ratings = ratings;
+        this.events = events;
     }
 }
