@@ -19,7 +19,7 @@ public class Event {
     private UUID entity_id;
     
     @NotNull
-    private final UUID clubId;
+    private final Club club;
 
     @NotNull
     @Size(min = 5, max = 255)
