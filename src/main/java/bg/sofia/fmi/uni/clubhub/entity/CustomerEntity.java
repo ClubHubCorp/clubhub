@@ -12,10 +12,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
 @Table(name = "CUSTOMER")
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
 @EqualsAndHashCode(callSuper = true)
 public class CustomerEntity extends UserEntity {
 
