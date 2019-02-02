@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 import java.math.BigDecimal;
 import java.util.Set;
+import java.util.UUID;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,4 +34,14 @@ public class ClubEntity extends UserEntity {
 
     @OneToMany(cascade = ALL, orphanRemoval = true)
     private Set<RatingEntity> ratings;
+
+    public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
+                      BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings) {
+        super(id, username, password, email);
+        this.address = address;
+        this.capacity = capacity;
+        this.entranceFee = entranceFee;
+        this.bookings = bookings;
+        this.ratings = ratings;
+    }
 }
