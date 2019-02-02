@@ -12,10 +12,12 @@ import java.util.Date;
 import java.util.UUID;
 
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity.AttendanceStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
 
 @Data
+@AllArgsConstructor
 public class Booking {
 
     @Null

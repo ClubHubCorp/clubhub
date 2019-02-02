@@ -8,7 +8,7 @@ import bg.sofia.fmi.uni.clubhub.model.Booking;
 
 public interface IBookingService {
 
-    Booking createNew(Booking booking, UUID customerId);
+    Booking createNew(Booking booking);
 
     Optional<Booking> getByIdForCustomer(UUID id, UUID customerId);
 

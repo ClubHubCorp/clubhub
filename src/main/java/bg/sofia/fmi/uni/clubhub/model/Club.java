@@ -1,5 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
@@ -40,7 +41,7 @@ public class Club {
     private String address;
 
     @NotNull
-    @Size(min = 50)
+    @Min(50)
     private int capacity;
 
     @NotNull

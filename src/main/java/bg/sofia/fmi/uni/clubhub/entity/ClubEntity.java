@@ -11,11 +11,13 @@ import java.util.UUID;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "CLUB")
 public class ClubEntity extends UserEntity {
@@ -37,6 +39,10 @@ public class ClubEntity extends UserEntity {
     
     @OneToMany(cascade = ALL, orphanRemoval = true)
     private Set<EventEntity> events;
+
+    public ClubEntity(UUID id) {
+        super(id);
+    }
 
     public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
                       BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings, Set<EventEntity> events) {
