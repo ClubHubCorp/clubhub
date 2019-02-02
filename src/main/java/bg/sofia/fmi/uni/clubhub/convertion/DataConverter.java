@@ -1,9 +1,11 @@
 package bg.sofia.fmi.uni.clubhub.convertion;
 
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
+import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
 import bg.sofia.fmi.uni.clubhub.entity.CustomerEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.model.Booking;
+import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 
@@ -78,6 +80,27 @@ public class DataConverter {
     			model.getDate(), //
     			model.getDescription(), //
     			toEntity(model.getClub()));
+    }
+
+    public static Club toModel(ClubEntity entity) {
+        return new Club(
+                entity.getId(), entity.getUsername(),
+                entity.getPassword(), entity.getEmail(),
+                entity.getAddress(), entity.getCapacity(),
+                entity.getEntranceFee(), emptyIfNull(entity.getBookings()),
+                emptyIfNull(entity.getRatings()), emptyIfNull(entity.getEvents())
+        );
+
+    }
+
+    public static ClubEntity toEntity(Club model) {
+    return new ClubEntity(
+            model.getId(), model.getUsername(),
+            model.getPassword(), model.getEmail(),
+            model.getAddress(), model.getCapacity(),
+            model.getEntranceFee(), emptyIfNull(model.getBookings()),
+            emptyIfNull(model.getRatings()), emptyIfNull(model.getEvents())
+    );
     }
 
     private DataConverter() {
