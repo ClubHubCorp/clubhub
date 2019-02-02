@@ -33,6 +33,12 @@ public class EventService implements IEventService {
 	}
 
 	@Override
+	public List<Event> getEventsHostedByAClub(UUID clubId) {
+		List<EventEntity> events = eventRepository.findAllByClubId(clubId);
+		return events.stream().map(DataConverter :: toModel).collect(Collectors.toList());
+	}
+
+	@Override
 	public List<Event> getEventsThatContain(String word) {
 		List<EventEntity> entities = eventRepository.findByNameIgnoreCaseContaining(word);
 

@@ -9,6 +9,7 @@ import bg.sofia.fmi.uni.clubhub.model.Event;
 
 public interface IEventService {
 	Optional<Event> getById(UUID id);
+	List<Event> getEventsHostedByAClub(UUID clubId);
 	List<Event> getEventsThatContain(String word);
 	Event createNew(Event event);
 	void deleteById(UUID id);
