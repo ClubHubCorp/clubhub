@@ -1,5 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "EVENT")
 @Data
+@AllArgsConstructor
 public class EventEntity {
 
     @Id
