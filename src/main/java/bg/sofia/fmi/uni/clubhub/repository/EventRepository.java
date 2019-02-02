@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 
 @Repository
-public interface EntityRepository extends JpaRepository<EventEntity, UUID> {
+public interface EventRepository extends JpaRepository<EventEntity, UUID> {
 	
 	
 }
