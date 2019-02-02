@@ -1,17 +1,20 @@
 package bg.sofia.fmi.uni.clubhub.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import java.math.BigDecimal;
+import java.util.Set;
+import java.util.UUID;
+
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.entity.RatingEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.aspectj.lang.annotation.AdviceName;
-
-import javax.persistence.NamedAttributeNode;
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
-import java.util.Set;
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -29,8 +32,7 @@ public class Club {
     private final String password;
 
     @NotNull
-    @Email
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
+    @Pattern(regexp = "^[a-zA-Z0-9._]+@[a-zA-Z0-9.]+\\.[a-zA-Z]{2,6}$")
     private final String email;
 
     @NotNull
