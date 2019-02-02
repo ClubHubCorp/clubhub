@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import bg.sofia.fmi.uni.clubhub.model.Booking;
 import bg.sofia.fmi.uni.clubhub.service.BookingService;
+import bg.sofia.fmi.uni.clubhub.service.IBookingService;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.ResponseEntity.notFound;
@@ -28,7 +29,7 @@ import static org.springframework.http.ResponseEntity.status;
 @RequestMapping("customers")
 public class BookingController {
 
-    private final BookingService bookingService;
+    private final IBookingService bookingService;
 
     @Autowired
     public BookingController(BookingService bookingService) {
@@ -60,7 +61,7 @@ public class BookingController {
             @PathVariable("customerId") UUID customerId, //
             @Valid @RequestBody Booking booking //
     ) {
-        return status(CREATED).body(bookingService.createNew(booking, customerId));
+        return status(CREATED).body(bookingService.createNew(booking));
     }
 
     @DeleteMapping("{customerId}/bookings/{bookingId}")
