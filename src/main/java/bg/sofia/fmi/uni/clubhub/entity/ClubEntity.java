@@ -34,6 +34,9 @@ public class ClubEntity extends UserEntity {
 
     @OneToMany(cascade = ALL, orphanRemoval = true)
     private Set<RatingEntity> ratings;
+    
+    @OneToMany(cascade = ALL, orphanRemoval = true)
+    private Set<EventEntity> events;
 
     public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
                       BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings) {
