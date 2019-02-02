@@ -1,6 +1,7 @@
 package bg.sofia.fmi.uni.clubhub.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,10 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ import bg.sofia.fmi.uni.clubhub.service.ICustomerService;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
@@ -43,6 +47,15 @@ public class CustomerController {
         }
 
         return ok(customer.get());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Customer>> getUsers(@RequestParam("page") int page, @RequestParam("size") int size) {
+        if (page < 0 || size <= 0) {
+            return badRequest().build();
+        }
+
+        return ok(customerService.getAll(PageRequest.of(page, size)));
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
