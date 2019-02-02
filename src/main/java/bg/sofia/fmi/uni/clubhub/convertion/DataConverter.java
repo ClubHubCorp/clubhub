@@ -1,5 +1,7 @@
 package bg.sofia.fmi.uni.clubhub.convertion;
 
+import java.util.UUID;
+
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
 import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
 import bg.sofia.fmi.uni.clubhub.entity.CustomerEntity;
@@ -26,10 +28,10 @@ public class DataConverter {
         );
     }
 
-    public static BookingEntity toEntity(Booking model, Customer customer) {
+    public static BookingEntity toEntity(Booking model, UUID customerId) {
         return new BookingEntity( //
                 model.getId(), //
-                toEntity(customer), //
+                new CustomerEntity(customerId), //
                 null, // TODO
                 model.getCountOfPeople(), //
                 model.getDate(), //
@@ -60,7 +62,7 @@ public class DataConverter {
                 model.getFirstName(), //
                 model.getLastName(), //
                 model.getAge(), //
-                emptyIfNull(model.getBookings()).stream().map(x -> toEntity(x, model)).collect(toSet()) //
+                emptyIfNull(model.getBookings()).stream().map(x -> toEntity(x, model.getId())).collect(toSet()) //
         );
     }
     
