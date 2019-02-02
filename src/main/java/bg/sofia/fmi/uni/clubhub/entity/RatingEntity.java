@@ -5,16 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import static lombok.AccessLevel.PROTECTED;
+
 import java.util.UUID;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "RATING")
 @Data
+@NoArgsConstructor(access = PROTECTED)
+@AllArgsConstructor
 public class RatingEntity {
 
-    enum Score {
+    public enum Score {
         AWFUL, //
         NOT_BAD, //
         GOOD, //
@@ -29,8 +35,8 @@ public class RatingEntity {
     private UUID clubId;
 
     @Column(nullable = false)
-    private int score;
+    private Score score;
 
     @Column
-    private Score comment;
+    private String comment;
 }
