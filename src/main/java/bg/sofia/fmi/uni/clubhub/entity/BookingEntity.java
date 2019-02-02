@@ -1,8 +1,7 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.UUID;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,17 +13,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.UUID;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Table(name = "BOOKING")
 @Data
+@AllArgsConstructor
 public class BookingEntity {
 	
-	enum AttendanceStatus {
+	public enum AttendanceStatus {
         UPCOMING, //
         ATTENDED, //
         MISSED, //
