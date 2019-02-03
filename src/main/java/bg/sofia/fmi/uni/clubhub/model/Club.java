@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
+import bg.sofia.fmi.uni.clubhub.entity.DiscountEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.entity.RatingEntity;
 import lombok.AllArgsConstructor;
@@ -56,5 +57,8 @@ public class Club {
 
     @NotNull
     private Set<EventEntity> events;
+    
+    @NotNull
+    private Set<DiscountEntity> discounts;
 
 }

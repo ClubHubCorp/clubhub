@@ -1,5 +1,7 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
+import static lombok.AccessLevel.PROTECTED;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,20 +18,19 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "DISCOUNT")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor(access = PROTECTED)
 public class DiscountEntity {
 	
 	 @Id
 	 private UUID id;
-	 
-	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
-	 @JoinColumn(name = "customer_id", nullable = false)
-     @OnDelete(action = OnDeleteAction.CASCADE)
-	 private CustomerEntity customer;
 	 
 	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
 	 @JoinColumn(name = "club_id", nullable = false)

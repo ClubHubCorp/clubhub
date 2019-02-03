@@ -45,6 +45,10 @@ public class Customer {
     @Positive
     @Min(LEGAL_DRINKING_AGE)
     private final int age;
+    
+    @NotNull
+    @Min(0)
+    private final int leaderboardPoints;
 
     @NotNull
     private final Set<Booking> bookings;
