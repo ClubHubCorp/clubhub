@@ -1,17 +1,21 @@
 package bg.sofia.fmi.uni.clubhub.convertion;
 
+import java.util.Date;
+
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
 import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
 import bg.sofia.fmi.uni.clubhub.entity.CustomerEntity;
 import bg.sofia.fmi.uni.clubhub.entity.DiscountEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.entity.RatingEntity;
+import bg.sofia.fmi.uni.clubhub.entity.SubscriptionEntity;
 import bg.sofia.fmi.uni.clubhub.model.Booking;
 import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
 import bg.sofia.fmi.uni.clubhub.model.Discount;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 import bg.sofia.fmi.uni.clubhub.model.Rating;
+import bg.sofia.fmi.uni.clubhub.model.Subscription;
 
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.collections4.SetUtils.emptyIfNull;
@@ -153,6 +157,21 @@ public class DataConverter {
     			entity.getEndDate(), //
     			entity.getThresholdPoints(), //
     			entity.getPercentOff());
+    }
+
+    public static SubscriptionEntity toEntity(CustomerEntity customer, ClubEntity club, Date date) {
+        return new SubscriptionEntity( //
+                new SubscriptionEntity.SubscriptionId(customer, club), //
+                date //
+        );
+    }
+
+    public static Subscription toModel(SubscriptionEntity entity) {
+        return new Subscription( //
+                entity.getSubscriptionId().getCustomer().getId(), //
+                entity.getSubscriptionId().getClub().getId(), //
+                entity.getDate() //
+        );
     }
 
     private DataConverter() {
