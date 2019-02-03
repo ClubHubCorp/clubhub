@@ -11,8 +11,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
+import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.model.Event;
+import bg.sofia.fmi.uni.clubhub.repository.ClubRepository;
 import bg.sofia.fmi.uni.clubhub.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,12 @@ import org.springframework.stereotype.Service;
 public class EventService implements IEventService {
 
 	private final EventRepository eventRepository;
+	private final ClubRepository clubRepository;
 
 	@Autowired
-	public EventService(EventRepository eventRepository) {
+	public EventService(EventRepository eventRepository, ClubRepository clubRepository) {
 		this.eventRepository = eventRepository;
+		this.clubRepository = clubRepository;
 	}
 
 	@Override
@@ -48,9 +52,15 @@ public class EventService implements IEventService {
 
 	@Override
 	public Event createNew(Event event) {
+		Optional<ClubEntity> club = clubRepository.findById(event.getClubId());
+		if (!club.isPresent()) {
+			throw new RuntimeException("No such club found");
+		}
+		
 		EventEntity entity = toEntity(event);
 		entity.setEntity_id(UUID.randomUUID());
-
+		entity.setClub(club.get());
+		
 		return toModel(eventRepository.save(entity));
 	}
 

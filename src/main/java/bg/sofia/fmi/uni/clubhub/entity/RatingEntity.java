@@ -2,8 +2,14 @@ package bg.sofia.fmi.uni.clubhub.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -31,8 +37,10 @@ public class RatingEntity {
     @Id
     private UUID id;
 
-    @Column(name = "club_id", nullable = false)
-    private UUID clubId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "club_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ClubEntity club;
 
     @Column(nullable = false)
     private Score score;
