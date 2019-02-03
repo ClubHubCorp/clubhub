@@ -38,12 +38,12 @@ public class BookingService implements IBookingService {
     public Booking createNew(Booking booking) {
         Optional<CustomerEntity> customer = customerRepository.findById(booking.getCustomerId());
         if (!customer.isPresent()) {
-            throw new RuntimeException("shit just hit the fan");
+            throw new RuntimeException("No such customer found");
         }
 
         Optional<ClubEntity> club = clubRepository.findById(booking.getClubId());
         if (!club.isPresent()) {
-            throw new RuntimeException("same");
+            throw new RuntimeException("No such club found");
         }
 
         BookingEntity bookingEntity = toEntity(booking);

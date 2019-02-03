@@ -69,7 +69,7 @@ public class DataConverter {
     public static Event toModel(EventEntity entity) {
         return new Event( //
                 entity.getEntity_id(), //
-                toModel(entity.getClub()), //
+                entity.getClub().getId(), //
                 entity.getName(), //
                 entity.getDate(), //
                 entity.getDescription());
@@ -81,7 +81,7 @@ public class DataConverter {
                 model.getName(), //
                 model.getDate(), //
                 model.getDescription(), //
-                toEntity(model.getClub()));
+                null);
     }
 
     public static Club toModel(ClubEntity entity) {
@@ -116,7 +116,7 @@ public class DataConverter {
     public static RatingEntity toEntity(Rating model) {
         return new RatingEntity(//
                 model.getId(), //
-                model.getClubId(), //
+                null, //
                 model.getScore(), //
                 model.getComment());
     }
@@ -124,7 +124,7 @@ public class DataConverter {
     public static Rating toModel(RatingEntity entity) {
         return new Rating(//
                 entity.getId(), //
-                entity.getClubId(), //
+                entity.getClub().getId(), //
                 entity.getScore(), //
                 entity.getComment());
     }
