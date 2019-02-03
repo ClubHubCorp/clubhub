@@ -29,6 +29,9 @@ public class CustomerEntity extends UserEntity {
 
     @Column(name = "age", nullable = false)
     private int age;
+    
+    @Column(name = "leaderboard_points", nullable = false)
+    private int leaderboardPoints;
 
     @OneToMany(mappedBy = "customer")
     private Set<BookingEntity> bookings;
@@ -37,12 +40,13 @@ public class CustomerEntity extends UserEntity {
         super(id);
     }
 
-    public CustomerEntity(UUID id, String username, String password, String email, String firstName, String lastName, int age,
+    public CustomerEntity(UUID id, String username, String password, String email, String firstName, String lastName, int age, int leaderboardPoints,
             Set<BookingEntity> bookings) {
         super(id, username, password, email);
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.leaderboardPoints = leaderboardPoints;
         this.bookings = bookings;
     }
 }

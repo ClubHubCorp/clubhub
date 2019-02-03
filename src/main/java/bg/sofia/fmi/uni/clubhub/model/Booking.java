@@ -41,7 +41,7 @@ public class Booking {
     private final int leaderboardPoints;
 
     @Positive
-    private final BigDecimal overallPrice;
+    private BigDecimal overallPrice;
 
     @NotNull
     private final AttendanceStatus attendanceStatus;

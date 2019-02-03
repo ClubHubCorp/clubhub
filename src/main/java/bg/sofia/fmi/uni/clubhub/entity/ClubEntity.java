@@ -40,6 +40,9 @@ public class ClubEntity extends UserEntity {
     
     @OneToMany(cascade = ALL, orphanRemoval = true)
     private Set<EventEntity> events;
+    
+    @OneToMany(cascade = ALL, orphanRemoval = true)
+    private Set<DiscountEntity> discounts;
 
     @OneToMany(cascade = ALL, orphanRemoval = true)
     private Set<DrinkEntity> drinks;
@@ -49,7 +52,8 @@ public class ClubEntity extends UserEntity {
     }
 
     public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
-                      BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings, Set<EventEntity> events) {
+                      BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings, Set<EventEntity> events,
+                      Set<DiscountEntity> discounts) {
         super(id, username, password, email);
         this.address = address;
         this.capacity = capacity;
@@ -57,5 +61,6 @@ public class ClubEntity extends UserEntity {
         this.bookings = bookings;
         this.ratings = ratings;
         this.events = events;
+        this.discounts = discounts;
     }
 }
