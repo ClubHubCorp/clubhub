@@ -13,6 +13,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
@@ -22,7 +25,7 @@ import bg.sofia.fmi.uni.clubhub.model.Customer;
 import bg.sofia.fmi.uni.clubhub.repository.CustomerRepository;
 
 @Service
-public class CustomerService implements ICustomerService {
+public class CustomerService implements ICustomerService, UserDetailsService {
 
     private final CustomerRepository customerRepository;
 
@@ -64,5 +67,15 @@ public class CustomerService implements ICustomerService {
     @Transactional
     public void deleteById(UUID id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<CustomerEntity> user = customerRepository.findByUsername(username);
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(String.format("User with username %s does not exist!", username));
+        }
+
+        return user.get();
     }
 }

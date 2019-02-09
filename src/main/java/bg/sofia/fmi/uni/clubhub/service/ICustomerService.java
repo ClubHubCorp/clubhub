@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import bg.sofia.fmi.uni.clubhub.model.Customer;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface ICustomerService {
 

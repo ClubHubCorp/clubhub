@@ -40,9 +40,9 @@ public class CustomerEntity extends UserEntity {
         super(id);
     }
 
-    public CustomerEntity(UUID id, String username, String password, String email, String firstName, String lastName, int age,
-            int leaderboardPoints, Set<BookingEntity> bookings) {
-        super(id, username, password, email);
+    public CustomerEntity(UUID id, String username, String password, String email, String firstName, String lastName, int age, int leaderboardPoints,
+            Set<BookingEntity> bookings) {
+        super(id, username, password, email, Role.CUSTOMER);
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

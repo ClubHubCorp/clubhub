@@ -2,6 +2,7 @@ package bg.sofia.fmi.uni.clubhub.controller;
 
 import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
+import bg.sofia.fmi.uni.clubhub.model.Login;
 import bg.sofia.fmi.uni.clubhub.service.IClubService;
 import bg.sofia.fmi.uni.clubhub.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("accounts")
@@ -49,6 +51,45 @@ public class AccountController {
 
     @PostMapping(value = "/register-club")
     public String registerClub(@Valid @ModelAttribute("club")Club club, BindingResult result) {
+        if (result.hasErrors()) {
+            return "accounts/register-club";
+        }
+
+        clubService.createNew(club);
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "accounts/login";
+    }
+
+    @GetMapping("/login-customer")
+    public String loginCustomer(@ModelAttribute("login") Login login) { return "accounts/login-customer"; }
+
+    @PostMapping(value = "/login-customer")
+    public String loginCustomer(@Valid @ModelAttribute("login")Login login, BindingResult result) {
+        if (result.hasErrors()) {
+            return "accounts/login-customer";
+        }
+
+        Optional<Customer> customer = customerService.getByUsername(login.getUsername());
+        if (!customer.isPresent()) {
+            return "redirect:/";
+        }
+
+        if (!customer.get().getPassword().equals(login.getPassword())) {
+            return "redirect:/";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/register-club")
+    public String loginClub(@ModelAttribute("club") Club club) { return "accounts/register-club"; }
+
+    @PostMapping(value = "/register-club")
+    public String loginClub(@Valid @ModelAttribute("club")Club club, BindingResult result) {
         if (result.hasErrors()) {
             return "accounts/register-club";
         }
