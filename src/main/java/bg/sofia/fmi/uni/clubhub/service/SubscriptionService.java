@@ -1,12 +1,19 @@
 package bg.sofia.fmi.uni.clubhub.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toEntity;
+import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
+import static java.lang.String.format;
+import static java.util.stream.Collectors.toList;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
 import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
@@ -16,11 +23,6 @@ import bg.sofia.fmi.uni.clubhub.model.Subscription;
 import bg.sofia.fmi.uni.clubhub.repository.ClubRepository;
 import bg.sofia.fmi.uni.clubhub.repository.CustomerRepository;
 import bg.sofia.fmi.uni.clubhub.repository.SubscriptionRepository;
-
-import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toEntity;
-import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
-import static java.lang.String.format;
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class SubscriptionService implements ISubscriptionService {
@@ -38,6 +40,7 @@ public class SubscriptionService implements ISubscriptionService {
     }
 
     @Override
+    @Transactional
     public Subscription createNew(Subscription subscription) {
         Optional<CustomerEntity> customer = customerRepository.findById(subscription.getCustomerId());
         if (!customer.isPresent()) {

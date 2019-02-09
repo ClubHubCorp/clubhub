@@ -1,5 +1,9 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
+import static lombok.AccessLevel.PROTECTED;
+
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,10 +14,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import static lombok.AccessLevel.PROTECTED;
-
-import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +29,7 @@ public class RatingEntity {
     public enum Score {
         AWFUL, //
         NOT_BAD, //
+        DECENT, //
         GOOD, //
         EXCELLENT, //
         ;

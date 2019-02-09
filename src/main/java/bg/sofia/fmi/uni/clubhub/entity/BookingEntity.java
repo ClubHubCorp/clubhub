@@ -1,7 +1,10 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import static lombok.AccessLevel.PROTECTED;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,15 +16,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.UUID;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "BOOKING")
@@ -32,8 +32,7 @@ public class BookingEntity {
 
     public enum AttendanceStatus {
         UPCOMING, //
-        ATTENDED, //
-        MISSED, //
+        CANCELED, //
         ;
     }
 
@@ -54,7 +53,7 @@ public class BookingEntity {
     private int countOfPeople;
 
     @Column(name = "date", nullable = false)
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Column(name = "leaderboard_points", nullable = false)

@@ -16,7 +16,7 @@ import lombok.Data;
 public class Event {
 
     @Null
-    private UUID entity_id;
+    private UUID id;
     
     @NotNull
 	private UUID clubId;

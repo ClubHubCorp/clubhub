@@ -12,6 +12,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,30 +26,36 @@ import bg.sofia.fmi.uni.clubhub.service.IDiscountService;
 @RestController
 @RequestMapping(value = "discounts")
 public class DiscountController {
-	
-	private final IDiscountService discountService;
-	
-	@Autowired
-	public DiscountController(IDiscountService discountService) {
-		this.discountService = discountService;
-	}
-	
-	@GetMapping(value = "{clubId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Discount>> getClubDiscountss(@PathVariable("clubId") UUID id) {
-       List<Discount> discounts = discountService.getAllDiscountForClub(id);
+
+    private final IDiscountService discountService;
+
+    @Autowired
+    public DiscountController(IDiscountService discountService) {
+        this.discountService = discountService;
+    }
+
+    @GetMapping(value = "/clubs/{clubId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Discount>> getClubDiscounts(@PathVariable("clubId") UUID id) {
+        List<Discount> discounts = discountService.getAllDiscountForClub(id);
 
         return ok(discounts);
     }
-    
+
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Discount>> getAllDiscounts() {
-    	List<Discount> discounts = discountService.getAllDiscounts();
+        List<Discount> discounts = discountService.getAllDiscounts();
 
         return ok(discounts);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Discount> createRating(@Valid @RequestBody Discount discount) {
+    public ResponseEntity<Discount> createDiscount(@Valid @RequestBody Discount discount) {
         return status(CREATED).body(discountService.createNew(discount));
+    }
+
+    @DeleteMapping("{discountId}/clubs/{clubId}")
+    public ResponseEntity deleteDiscount(@PathVariable("discountId") UUID discountId, @PathVariable("clubId") UUID clubId) {
+        discountService.delete(clubId, discountId);
+        return ok().build();
     }
 }

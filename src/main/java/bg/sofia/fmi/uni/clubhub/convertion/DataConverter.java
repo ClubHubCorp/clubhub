@@ -1,11 +1,18 @@
 package bg.sofia.fmi.uni.clubhub.convertion;
 
+import static org.apache.commons.collections4.SetUtils.emptyIfNull;
+
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Optional;
 
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
 import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
 import bg.sofia.fmi.uni.clubhub.entity.CustomerEntity;
 import bg.sofia.fmi.uni.clubhub.entity.DiscountEntity;
+import bg.sofia.fmi.uni.clubhub.entity.DrinkEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
 import bg.sofia.fmi.uni.clubhub.entity.RatingEntity;
 import bg.sofia.fmi.uni.clubhub.entity.SubscriptionEntity;
@@ -13,19 +20,10 @@ import bg.sofia.fmi.uni.clubhub.model.Booking;
 import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
 import bg.sofia.fmi.uni.clubhub.model.Discount;
+import bg.sofia.fmi.uni.clubhub.model.Drink;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 import bg.sofia.fmi.uni.clubhub.model.Rating;
 import bg.sofia.fmi.uni.clubhub.model.Subscription;
-import bg.sofia.fmi.uni.clubhub.entity.*;
-import bg.sofia.fmi.uni.clubhub.model.*;
-
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.Optional;
-
-import static java.util.stream.Collectors.reducing;
-import static java.util.stream.Collectors.toSet;
-import static org.apache.commons.collections4.SetUtils.emptyIfNull;
 
 public class DataConverter {
 
@@ -62,8 +60,7 @@ public class DataConverter {
                 entity.getFirstName(), //
                 entity.getLastName(), //
                 entity.getAge(), //
-                entity.getLeaderboardPoints(),//
-                emptyIfNull(entity.getBookings()).stream().map(DataConverter::toModel).collect(toSet()) //
+                entity.getLeaderboardPoints() //
         );
     }
 
@@ -76,14 +73,14 @@ public class DataConverter {
                 model.getFirstName(), //
                 model.getLastName(), //
                 model.getAge(), //
-                model.getLeaderboardPoints(),//
-                emptyIfNull(model.getBookings()).stream().map(DataConverter::toEntity).collect(toSet()) //
+                model.getLeaderboardPoints(), //
+                new HashSet<>() //
         );
     }
 
     public static Event toModel(EventEntity entity) {
         return new Event( //
-                entity.getEntity_id(), //
+                entity.getId(), //
                 entity.getClub().getId(), //
                 entity.getName(), //
                 entity.getDate(), //
@@ -92,7 +89,7 @@ public class DataConverter {
 
     public static EventEntity toEntity(Event model) {
         return new EventEntity( //
-                model.getEntity_id(), //
+                model.getId(), //
                 model.getName(), //
                 model.getDate(), //
                 model.getDescription(), //
@@ -145,25 +142,25 @@ public class DataConverter {
                 entity.getScore(), //
                 entity.getComment());
     }
-    
+
     public static DiscountEntity toEntity(Discount model) {
-    	return new DiscountEntity(//
-    			model.getId(),//
-    			null,//
-    			model.getStartDate(),//
-    			model.getEndDate(), //
-    			model.getThresholdPoints(), //
-    			model.getPercentOff());
+        return new DiscountEntity(//
+                model.getId(),//
+                null,//
+                model.getStartDate(),//
+                model.getEndDate(), //
+                model.getThresholdPoints(), //
+                model.getPercentOff());
     }
-    
+
     public static Discount toModel(DiscountEntity entity) {
-    	return new Discount(//
-    			entity.getId(),//
-    			entity.getClub().getId(), //
-    			entity.getStartDate(), //
-    			entity.getEndDate(), //
-    			entity.getThresholdPoints(), //
-    			entity.getPercentOff());
+        return new Discount(//
+                entity.getId(),//
+                entity.getClub().getId(), //
+                entity.getStartDate(), //
+                entity.getEndDate(), //
+                entity.getThresholdPoints(), //
+                entity.getPercentOff());
     }
 
     public static SubscriptionEntity toEntity(CustomerEntity customer, ClubEntity club, Date date) {
@@ -200,15 +197,15 @@ public class DataConverter {
         }
     }
 
-    public static DrinkEntity toEntity(Drink model){
-        return new DrinkEntity (
+    public static DrinkEntity toEntity(Drink model) {
+        return new DrinkEntity(
                 model.getId(), model.getName(), convertToBlob(model.getPicture()).get(),
                 model.getType(), model.getDescription(), null
         );
     }
 
     private static Optional<Blob> convertToBlob(byte[] bytes) {
-        Optional<Blob>  blob = Optional.empty();
+        Optional<Blob> blob = Optional.empty();
         try {
             blob = Optional.of(new javax.sql.rowset.serial.SerialBlob(bytes));
         } catch (SQLException e) {

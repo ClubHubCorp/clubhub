@@ -10,5 +10,5 @@ import bg.sofia.fmi.uni.clubhub.entity.RatingEntity;
 
 @Repository
 public interface RatingRepository extends JpaRepository<RatingEntity, UUID>{
-	List<RatingEntity> findAllByclubId(UUID clubId);
+	List<RatingEntity> findAllByClubId(UUID clubId);
 }

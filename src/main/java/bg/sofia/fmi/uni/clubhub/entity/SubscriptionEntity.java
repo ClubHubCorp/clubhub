@@ -1,7 +1,9 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import static lombok.AccessLevel.PROTECTED;
+
+import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -14,14 +16,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Table(name = "SUBSCRIPTION")
@@ -34,7 +34,7 @@ public class SubscriptionEntity {
     private SubscriptionId subscriptionId;
 
     @Column(name = "date", nullable = false)
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Embeddable
