@@ -1,5 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.controller;
 
+import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
 import bg.sofia.fmi.uni.clubhub.service.IClubService;
 import bg.sofia.fmi.uni.clubhub.service.ICustomerService;
@@ -40,6 +41,19 @@ public class AccountController {
         }
 
         customerService.createNew(customer);
+        return "redirect:/";
+    }
+
+    @GetMapping("/register-club")
+    public String registerClub(@ModelAttribute("club") Club club) { return "accounts/register-club"; }
+
+    @PostMapping(value = "/register-club")
+    public String registerClub(@Valid @ModelAttribute("club")Club club, BindingResult result) {
+        if (result.hasErrors()) {
+            return "accounts/register-club";
+        }
+
+        clubService.createNew(club);
         return "redirect:/";
     }
 }

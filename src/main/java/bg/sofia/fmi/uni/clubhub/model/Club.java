@@ -43,22 +43,18 @@ public class Club {
 
     @NotNull
     @Min(50)
-    private int capacity;
+    private Integer capacity;
 
     @NotNull
-    @Positive
+    @Min(0)
     private BigDecimal entranceFee;
 
-    @NotNull
     private Set<BookingEntity> bookings;
 
-    @NotNull
     private Set<RatingEntity> ratings;
 
-    @NotNull
     private Set<EventEntity> events;
-    
-    @NotNull
+
     private Set<DiscountEntity> discounts;
 
 }

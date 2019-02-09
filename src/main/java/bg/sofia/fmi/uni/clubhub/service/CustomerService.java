@@ -56,7 +56,6 @@ public class CustomerService implements ICustomerService {
         CustomerEntity entity = toEntity(customer);
         entity.setId(UUID.randomUUID());
         entity.setLeaderboardPoints(0);
-        entity.setBookings(new HashSet<BookingEntity>());
 
         return toModel(customerRepository.save(entity));
     }
