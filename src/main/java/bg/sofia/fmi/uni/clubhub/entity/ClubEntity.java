@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
+import bg.sofia.fmi.uni.clubhub.model.Drink;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,9 @@ public class ClubEntity extends UserEntity {
     
     @OneToMany(cascade = ALL, orphanRemoval = true)
     private Set<DiscountEntity> discounts;
+
+    @OneToMany(cascade = ALL, orphanRemoval = true)
+    private Set<DrinkEntity> drinks;
 
     public ClubEntity(UUID id) {
         super(id);

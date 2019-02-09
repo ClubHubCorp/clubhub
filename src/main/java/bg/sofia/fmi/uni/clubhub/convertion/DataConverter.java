@@ -16,7 +16,14 @@ import bg.sofia.fmi.uni.clubhub.model.Discount;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 import bg.sofia.fmi.uni.clubhub.model.Rating;
 import bg.sofia.fmi.uni.clubhub.model.Subscription;
+import bg.sofia.fmi.uni.clubhub.entity.*;
+import bg.sofia.fmi.uni.clubhub.model.*;
 
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Optional;
+
+import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.collections4.SetUtils.emptyIfNull;
 
@@ -172,6 +179,42 @@ public class DataConverter {
                 entity.getSubscriptionId().getClub().getId(), //
                 entity.getDate() //
         );
+    }
+
+
+    public static Drink toModel(DrinkEntity entity) {
+        return new Drink(
+                entity.getName(), handleBlob(entity.getPicture()),
+                entity.getType(), entity.getDescription()
+        );
+    }
+
+    private static byte[] handleBlob(Blob blob) {
+        long length = 0;
+        try {
+            length = blob.length();
+            return blob.getBytes(0, (int) length);
+
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public static DrinkEntity toEntity(Drink model){
+        return new DrinkEntity (
+                model.getId(), model.getName(), convertToBlob(model.getPicture()).get(),
+                model.getType(), model.getDescription(), null
+        );
+    }
+
+    private static Optional<Blob> convertToBlob(byte[] bytes) {
+        Optional<Blob>  blob = Optional.empty();
+        try {
+            blob = Optional.of(new javax.sql.rowset.serial.SerialBlob(bytes));
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        return blob;
     }
 
     private DataConverter() {
