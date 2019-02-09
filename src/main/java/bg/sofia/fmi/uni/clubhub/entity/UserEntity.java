@@ -1,10 +1,10 @@
 package bg.sofia.fmi.uni.clubhub.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-
-import java.util.UUID;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

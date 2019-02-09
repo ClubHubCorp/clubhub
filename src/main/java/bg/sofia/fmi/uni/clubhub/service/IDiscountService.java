@@ -9,4 +9,5 @@ public interface IDiscountService {
 	Discount createNew(Discount discount);
 	List<Discount> getAllDiscountForClub(UUID clubId);
 	List<Discount> getAllDiscounts();
+	void delete(UUID clubId, UUID discountId);
 }

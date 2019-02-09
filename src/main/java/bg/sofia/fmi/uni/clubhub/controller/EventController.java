@@ -7,7 +7,6 @@ import static org.springframework.http.ResponseEntity.ok;
 import static org.springframework.http.ResponseEntity.status;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -29,7 +28,7 @@ import bg.sofia.fmi.uni.clubhub.service.IEventService;
 @RestController
 @RequestMapping(value = "events")
 public class EventController {
-	private final IEventService eventService;
+    private final IEventService eventService;
 
     @Autowired
     public EventController(IEventService eventService) {
@@ -38,22 +37,23 @@ public class EventController {
 
     @GetMapping(value = "{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Event> getEvent(@PathVariable("id") UUID id) {
-        Optional<Event> event = eventService.getById(id);
-        if (!event.isPresent()) {
-            return notFound().build();
-        }
-
-        return ok(event.get());
+        return eventService.getById(id) //
+                .map(ResponseEntity::ok) //
+                .orElse(notFound().build());
     }
-    
+
     @GetMapping(value = "search/{word}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Event>> getEvents(@PathVariable("word") String word) {
-        List<Event> events = eventService.getEventsThatContain(word);
-        return ok(events);
+        return ok(eventService.getEventsThatContain(word));
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
+    @GetMapping(value = "clubs/{clubId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Event>> getEventsForClub(@PathVariable("clubId") UUID clubId) {
+        return ok(eventService.getEventsHostedByAClub(clubId));
+    }
+
+    @PostMapping(value = "clubs/{clubId}", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Event> createEvent(@PathVariable("clubId") UUID clubId, @Valid @RequestBody Event event) {
         return status(CREATED).body(eventService.createNew(event));
     }
 

@@ -26,29 +26,26 @@ import bg.sofia.fmi.uni.clubhub.service.IRatingService;
 @RestController
 @RequestMapping(value = "ratings")
 public class RatingController {
-	
-	private final IRatingService ratingService;
-	
-	@Autowired
-	public RatingController(IRatingService ratingService) {
-		this.ratingService = ratingService;
-	}
-	
-    @GetMapping(value = "{clubId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Rating>> getClubRatings(@PathVariable("clubId") UUID id) {
-       List<Rating> ratings = ratingService.getAllRatingsForClub(id);
 
-        return ok(ratings);
+    private final IRatingService ratingService;
+
+    @Autowired
+    public RatingController(IRatingService ratingService) {
+        this.ratingService = ratingService;
     }
-    
-    @GetMapping(value = "average/{clubId}}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<RatingEntity.Score> getAverageClubRating(@PathVariable("word") UUID id) {
+
+    @GetMapping(value = "clubs/{clubId}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Rating>> getClubRatings(@PathVariable("clubId") UUID id) {
+        return ok(ratingService.getAllRatingsForClub(id));
+    }
+
+    @GetMapping(value = "clubs/{clubId}/average", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<RatingEntity.Score> getAverageClubRating(@PathVariable("clubId") UUID id) {
         return ok(ratingService.getAverageScoreForClub(id));
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Rating> createRating(@Valid @RequestBody Rating rating) {
-        return status(CREATED).body(ratingService.createNew(rating));
+    @PostMapping(value = "clubs/{clubId}", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Rating> createRating(@PathVariable("clubId") String clubId, @Valid @RequestBody Rating rating) {
+        return status(CREATED).body(ratingService.createNewForClub(rating));
     }
-
 }

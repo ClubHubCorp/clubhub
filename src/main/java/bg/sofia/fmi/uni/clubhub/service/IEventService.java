@@ -11,6 +11,7 @@ public interface IEventService {
 	Optional<Event> getById(UUID id);
 	List<Event> getEventsHostedByAClub(UUID clubId);
 	List<Event> getEventsThatContain(String word);
+	List<Event> getAllEvents();
 	Event createNew(Event event);
 	void deleteById(UUID id);
 }

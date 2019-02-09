@@ -7,7 +7,10 @@ import bg.sofia.fmi.uni.clubhub.entity.RatingEntity;
 import bg.sofia.fmi.uni.clubhub.model.Rating;
 
 public interface IRatingService {
-	Rating createNew(Rating rating);
+
+    Rating createNewForClub(Rating rating);
+
     List<Rating> getAllRatingsForClub(UUID clubId);
+
     RatingEntity.Score getAverageScoreForClub(UUID clubId);
- }
+}

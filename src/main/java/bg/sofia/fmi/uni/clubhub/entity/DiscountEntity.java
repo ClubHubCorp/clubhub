@@ -28,27 +28,27 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
 public class DiscountEntity {
-	
-	 @Id
-	 private UUID id;
-	 
-	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
-	 @JoinColumn(name = "club_id", nullable = false)
-     @OnDelete(action = OnDeleteAction.CASCADE)
-	 private ClubEntity club;
-	 
-	 @Column(name = "start_date", nullable = false)
-	 @Temporal(TemporalType.TIME)
-	 private Date startDate;
-	 
-	 @Column(name = "end_date", nullable = false)
-	 @Temporal(TemporalType.TIME)
-	 private Date endDate;
-	 
-	 @Column(name = "threshold_points", nullable = false)
-	 private int thresholdPoints;
-	 
-	 @Column(name = "percent_off", nullable = false)
-	 private int percentOff;
-	 
+
+    @Id
+    private UUID id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "club_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ClubEntity club;
+
+    @Column(name = "start_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+
+    @Column(name = "end_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
+
+    @Column(name = "threshold_points", nullable = false)
+    private int thresholdPoints;
+
+    @Column(name = "percent_off", nullable = false)
+    private int percentOff;
+
 }

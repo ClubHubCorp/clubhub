@@ -1,20 +1,20 @@
 package bg.sofia.fmi.uni.clubhub.service;
 
 
-import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
-import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
-import bg.sofia.fmi.uni.clubhub.model.Club;
-import bg.sofia.fmi.uni.clubhub.model.Customer;
-import bg.sofia.fmi.uni.clubhub.repository.ClubRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
 
-import javax.swing.text.html.Option;
-import javax.xml.crypto.Data;
 import java.util.Optional;
 import java.util.UUID;
 
-import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
+import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
+import bg.sofia.fmi.uni.clubhub.model.Club;
+import bg.sofia.fmi.uni.clubhub.repository.ClubRepository;
 
 
 @Service
@@ -34,6 +34,7 @@ public class ClubService implements IClubService{
     }
 
     @Override
+    @Transactional
     public Club createNew(Club club) {
         ClubEntity  clubEntity = DataConverter.toEntity(club);
         clubEntity.setId(UUID.randomUUID());
@@ -42,6 +43,7 @@ public class ClubService implements IClubService{
     }
 
     @Override
+    @Transactional
     public void deleteById(UUID id) {
         clubRepository.deleteById(id);
     }
