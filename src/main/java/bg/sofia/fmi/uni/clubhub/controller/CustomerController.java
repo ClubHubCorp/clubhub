@@ -9,18 +9,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,11 +31,6 @@ public class CustomerController {
     @Autowired
     public CustomerController(ICustomerService customerService) {
         this.customerService = customerService;
-    }
-
-    @GetMapping("/register")
-    public String register() {
-        return "customers/register";
     }
 
     @GetMapping(value = "{id}", produces = APPLICATION_JSON_VALUE)
@@ -60,21 +50,6 @@ public class CustomerController {
         }
 
         return ok(customerService.getAll(PageRequest.of(page, size)));
-    }
-
-    @GetMapping("/register-customer")
-    public String registerCustomer(@ModelAttribute("customer") Customer customer) {
-        return "customers/register-customer";
-    }
-
-    @PostMapping(value = "/register-customer")
-    public String createUser(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
-        if (result.hasErrors()) {
-            return "customers/register-customer";
-        }
-
-        customerService.createNew(customer);
-        return "redirect:/";
     }
 
     @DeleteMapping("{id}")

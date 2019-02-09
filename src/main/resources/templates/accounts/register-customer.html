@@ -6,7 +6,7 @@
 <div class="container" xmlns:th="http://www.thymeleaf.org">
     <div class="row">
         <div class="col-md-12">
-            <form class="form-horizontal" th:action="@{/customers/register-customer}" th:object="${customer}" method="post">
+            <form class="form-horizontal" th:action="@{/accounts/register-customer}" th:object="${customer}" method="post">
                 <div class="form-group">
                     <label path="username">Username</label>
                     <input type="text" class="form-control" id="username" name="username" th:value="*{username}" th:errorclass="fieldError">
