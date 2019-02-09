@@ -1,5 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.model;
 
+import java.util.Set;
 import java.util.UUID;
 
 import javax.validation.constraints.Email;
@@ -43,9 +44,10 @@ public class Customer {
 
     @Positive
     @Min(LEGAL_DRINKING_AGE)
-    private final int age;
+    private final Integer age;
 
-    @NotNull
     @Min(0)
-    private final int leaderboardPoints;
+    private final Integer leaderboardPoints;
+
+    private final Set<Booking> bookings;
 }

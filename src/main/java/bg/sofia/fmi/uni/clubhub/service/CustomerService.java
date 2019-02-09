@@ -4,6 +4,7 @@ import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toEntity;
 import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
 import static java.util.stream.Collectors.toList;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
+import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
 import bg.sofia.fmi.uni.clubhub.entity.CustomerEntity;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
 import bg.sofia.fmi.uni.clubhub.repository.CustomerRepository;
@@ -53,6 +55,8 @@ public class CustomerService implements ICustomerService {
     public Customer createNew(Customer customer) {
         CustomerEntity entity = toEntity(customer);
         entity.setId(UUID.randomUUID());
+        entity.setLeaderboardPoints(0);
+        entity.setBookings(new HashSet<BookingEntity>());
 
         return toModel(customerRepository.save(entity));
     }

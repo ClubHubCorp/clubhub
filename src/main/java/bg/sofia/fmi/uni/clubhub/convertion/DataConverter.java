@@ -1,11 +1,11 @@
 package bg.sofia.fmi.uni.clubhub.convertion;
 
+import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.collections4.SetUtils.emptyIfNull;
 
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Optional;
 
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity;
@@ -54,13 +54,15 @@ public class DataConverter {
 
     public static Customer toModel(CustomerEntity entity) {
         return new Customer( //
-                entity.getId(), entity.getUsername(), //
+                entity.getId(), //
+                entity.getUsername(), //
                 entity.getPassword(), //
                 entity.getEmail(), //
                 entity.getFirstName(), //
                 entity.getLastName(), //
                 entity.getAge(), //
-                entity.getLeaderboardPoints() //
+                entity.getLeaderboardPoints(), //,
+                emptyIfNull(entity.getBookings()).stream().map(DataConverter::toModel).collect(toSet()) //
         );
     }
 
@@ -73,8 +75,8 @@ public class DataConverter {
                 model.getFirstName(), //
                 model.getLastName(), //
                 model.getAge(), //
-                model.getLeaderboardPoints(), //
-                new HashSet<>() //
+                model.getLeaderboardPoints() == null ? 0 : model.getLeaderboardPoints(), //
+                emptyIfNull(model.getBookings()).stream().map(DataConverter::toEntity).collect(toSet()) //
         );
     }
 

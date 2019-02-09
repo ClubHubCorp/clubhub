@@ -8,8 +8,12 @@
         <div class="col-md-12 div-register">
             <h2 class="text-center">Please choose an Account type:</h2>
             <div class="text-center">
-                <button class="btn btn-info btn-register">Club</button>
-                <button class="btn btn-info btn-register">Customer</button>
+                <form class="form-horizontal" th:action="@{/customers/register-club}" method="get">
+                    <button class="btn btn-info btn-register">Club</button>
+                </form>
+                <form class="form-horizontal" th:action="@{/customers/register-customer}" method="get">
+                    <button class="btn btn-info btn-register">Customer</button>
+                </form>
             </div>
         </div>
     </div>
