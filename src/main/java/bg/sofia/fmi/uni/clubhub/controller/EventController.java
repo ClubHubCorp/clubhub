@@ -26,7 +26,7 @@ import bg.sofia.fmi.uni.clubhub.service.IEventService;
 
 
 @RestController
-@RequestMapping(value = "events")
+@RequestMapping("events")
 public class EventController {
     private final IEventService eventService;
 

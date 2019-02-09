@@ -1,27 +1,30 @@
 package bg.sofia.fmi.uni.clubhub.controller;
 
-import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
-import bg.sofia.fmi.uni.clubhub.enums.DrinkType;
-import bg.sofia.fmi.uni.clubhub.model.Drink;
-import bg.sofia.fmi.uni.clubhub.model.Event;
-import bg.sofia.fmi.uni.clubhub.service.IDrinkService;
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.ResponseEntity.notFound;
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.resolve;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.ResponseEntity.*;
+import javax.validation.Valid;
 
-@RestController("drinks")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import bg.sofia.fmi.uni.clubhub.enums.DrinkType;
+import bg.sofia.fmi.uni.clubhub.model.Drink;
+import bg.sofia.fmi.uni.clubhub.service.IDrinkService;
+
 public class DrinkController {
     private final IDrinkService drinkService;
 

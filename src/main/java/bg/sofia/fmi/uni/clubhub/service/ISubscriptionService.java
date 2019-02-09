@@ -10,4 +10,6 @@ public interface ISubscriptionService {
     Subscription createNew(Subscription subscription);
 
     List<Subscription> getSubscriptionsForCustomer(UUID customerId);
+
+    List<Subscription> getSubscriptionsForClub(UUID clubId);
 }

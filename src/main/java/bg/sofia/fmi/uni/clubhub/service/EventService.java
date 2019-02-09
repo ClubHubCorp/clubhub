@@ -16,7 +16,10 @@ import org.springframework.stereotype.Service;
 import bg.sofia.fmi.uni.clubhub.convertion.DataConverter;
 import bg.sofia.fmi.uni.clubhub.entity.ClubEntity;
 import bg.sofia.fmi.uni.clubhub.entity.EventEntity;
+import bg.sofia.fmi.uni.clubhub.mail.IMailSender;
+import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Event;
+import bg.sofia.fmi.uni.clubhub.model.Subscription;
 import bg.sofia.fmi.uni.clubhub.repository.ClubRepository;
 import bg.sofia.fmi.uni.clubhub.repository.EventRepository;
 
@@ -26,10 +29,19 @@ public class EventService implements IEventService {
     private final EventRepository eventRepository;
     private final ClubRepository clubRepository;
 
+    private final ISubscriptionService subscriptionService;
+    private final CustomerService customerService;
+
+    private final IMailSender mailSender;
+
     @Autowired
-    public EventService(EventRepository eventRepository, ClubRepository clubRepository) {
+    public EventService(EventRepository eventRepository, ClubRepository clubRepository, //
+            ISubscriptionService subscriptionService, CustomerService customerService, IMailSender mailSender) {
         this.eventRepository = eventRepository;
         this.clubRepository = clubRepository;
+        this.subscriptionService = subscriptionService;
+        this.customerService = customerService;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -71,12 +83,24 @@ public class EventService implements IEventService {
         entity.setId(UUID.randomUUID());
         entity.setClub(club.get());
 
-        return toModel(eventRepository.save(entity));
+        Event createdEvent = toModel(eventRepository.save(entity));
+
+        sendMailsToSubscribedCustomers(event, toModel(club.get()));
+        return createdEvent;
     }
 
     @Override
-    @Transactional
     public void deleteById(UUID id) {
         eventRepository.deleteById(id);
+    }
+
+    private void sendMailsToSubscribedCustomers(Event event, Club club) {
+        new Thread(() -> //
+                subscriptionService.getSubscriptionsForClub(club.getId()).stream() //
+                        .map(Subscription::getCustomerId) //
+                        .map(customerService::getById) //
+                        .filter(Optional::isPresent) //
+                        .forEach(customer -> mailSender.sendEventNotification(event, club, customer.get()))) //
+                .start();
     }
 }
