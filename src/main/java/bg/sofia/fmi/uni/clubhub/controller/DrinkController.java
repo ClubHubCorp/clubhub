@@ -36,12 +36,12 @@ public class DrinkController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Drink>> getDrinkByClubId(@RequestParam("clubId") UUID clubId) {
+    public ResponseEntity<List<Drink>> getDrinksByClubId(@RequestParam("clubId") UUID clubId) {
         return ok(drinkService.getAllDrinksByClubId(clubId));
     }
 
 
-    @GetMapping("type")
+    @GetMapping("type/{type}")
     public ResponseEntity<List<Drink>> getAllDrinksByType(@PathVariable DrinkType type) {
         return ok(drinkService.getAllDrinksByType(type));
     }
