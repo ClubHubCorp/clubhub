@@ -62,4 +62,11 @@ public class SubscriptionService implements ISubscriptionService {
                 .map(DataConverter::toModel) //
                 .collect(toList());
     }
+
+    @Override
+    public List<Subscription> getSubscriptionsForClub(UUID clubId) {
+        return subscriptionRepository.findAllByClubId(clubId).stream() //
+                .map(DataConverter::toModel) //
+                .collect(toList());
+    }
 }
