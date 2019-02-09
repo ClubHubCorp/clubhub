@@ -35,8 +35,7 @@ public class DrinkController {
         return status(CREATED).body(drinkService.createNew(drink));
     }
 
-    @GetMapping
-
+    @GetMapping("clubs/{clubId}")
     public ResponseEntity<List<Drink>> getDrinksByClubId(@RequestParam("clubId") UUID clubId) {
         return ok(drinkService.getAllDrinksByClubId(clubId));
     }
