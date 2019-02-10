@@ -28,7 +28,6 @@ public class AccountController {
         this.clubService = clubService;
     }
 
-
     @GetMapping("/")
     public String home() {
         return "index";
@@ -57,6 +56,16 @@ public class AccountController {
     @GetMapping("/register-club")
     public String registerClub(@ModelAttribute("club") Club club) {
         return "accounts/register-club";
+    }
+
+    @PostMapping("/register-club")
+    public String registerClub(@Valid @ModelAttribute("club") Club club, BindingResult result) {
+        if (result.hasErrors()) {
+            return "accounts/register-club";
+        }
+
+        clubService.createNew(club);
+        return "redirect:/accounts/login-club";
     }
 
     @GetMapping("/login")
