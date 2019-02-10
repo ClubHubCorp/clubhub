@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 div-register">
+            <h2 class="text-center">Please choose an Account type:</h2>
+            <div class="text-center">
+                <form class="form-horizontal" th:action="@{/accounts/register-club}" method="get">
+                    <button class="btn btn-info btn-register">Club</button>
+                </form>
+                <form class="form-horizontal" th:action="@{/accounts/register-customer}" method="get">
+                    <button class="btn btn-info btn-register">Customer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

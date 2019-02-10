@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
-import bg.sofia.fmi.uni.clubhub.model.Drink;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -54,7 +53,7 @@ public class ClubEntity extends UserEntity {
     public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
                       BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings, Set<EventEntity> events,
                       Set<DiscountEntity> discounts) {
-        super(id, username, password, email);
+        super(id, username, password, email, Role.CLUB);
         this.address = address;
         this.capacity = capacity;
         this.entranceFee = entranceFee;

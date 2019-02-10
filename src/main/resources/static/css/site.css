@@ -1,0 +1,14 @@
+body {
+    padding-top: 65px;
+}
+
+.btn-register {
+    font-size: 40px;
+    margin-right: 20px;
+    margin-top: 30px;
+    width: 300px;
+}
+
+.div-register {
+    margin-top: 200px;
+}

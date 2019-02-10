@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" th:action="@{/accounts/register-club}" th:object="${club}" method="post">
+                <div class="form-group">
+                    <label path="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" th:value="*{username}" th:errorclass="fieldError">
+                </div>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Username
+                </p>
+
+                <div class="form-group">
+                    <label path="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" th:value="*{email}" th:errorclass="email">
+                </div>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Email
+                </p>
+
+                <div class="form-group">
+                    <label path="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" th:value="*{password}" th:errorclass="password">
+                </div>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Password
+                </p>
+
+                <div class="form-group">
+                    <label path="address">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" th:value="*{address}" th:errorclass="address">
+                </div>
+                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Address
+                </p>
+
+                <div class="form-group">
+                    <label path="capacity">Capacity</label>
+                    <input type="number" class="form-control" id="capacity" name="capacity" th:value="*{capacity}" th:errorclass="capacity">
+                </div>
+                <p th:if="${#fields.hasErrors('capacity')}" th:errors="*{capacity}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Capacity
+                </p>
+
+                <div class="form-group">
+                    <label path="entranceFee">Entrance Fee</label>
+                    <input type="number" class="form-control" id="entranceFee" name="entranceFee" th:value="*{entranceFee}" th:errorclass="entranceFee">
+                </div>
+                <p th:if="${#fields.hasErrors('entranceFee')}" th:errors="*{entranceFee}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Entrance Fee
+                </p>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register Club</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
