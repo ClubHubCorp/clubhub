@@ -14,13 +14,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity(debug = true)
-public class CustomerSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -35,16 +40,11 @@ public class CustomerSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/accounts/customers").hasRole(CUSTOMER.name()) //
                 .antMatchers("/accounts/clubs").hasRole(CLUB.name()) //
                 .anyRequest().authenticated() //
-                .and().formLogin().loginPage("/accounts/login-customer") //
-                .loginProcessingUrl("/accounts/login-customer").failureUrl("/accounts/login-customer?error=true")
+                .and().formLogin().loginPage("/accounts/login") //
+                .loginProcessingUrl("/accounts/login").failureUrl("/accounts/login?error=true")
                 .and().logout().logoutSuccessUrl("/") //
                 .invalidateHttpSession(true) //
                 .deleteCookies("JSESSIONID") //
                 .and().httpBasic();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 }
