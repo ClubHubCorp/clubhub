@@ -1,12 +1,10 @@
 package bg.sofia.fmi.uni.clubhub.controller;
 
-import bg.sofia.fmi.uni.clubhub.model.Club;
-import bg.sofia.fmi.uni.clubhub.model.Customer;
-import bg.sofia.fmi.uni.clubhub.model.Login;
-import bg.sofia.fmi.uni.clubhub.service.IClubService;
-import bg.sofia.fmi.uni.clubhub.service.ICustomerService;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.util.Optional;
+import bg.sofia.fmi.uni.clubhub.model.Club;
+import bg.sofia.fmi.uni.clubhub.model.Customer;
+import bg.sofia.fmi.uni.clubhub.model.Login;
+import bg.sofia.fmi.uni.clubhub.service.IClubService;
+import bg.sofia.fmi.uni.clubhub.service.ICustomerService;
 
 @Controller
 @RequestMapping("accounts")
@@ -29,16 +30,24 @@ public class AccountController {
         this.clubService = clubService;
     }
 
+
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
+
     @GetMapping("/register")
     public String register() {
         return "accounts/register";
     }
 
     @GetMapping("/register-customer")
-    public String registerCustomer(@ModelAttribute("customer") Customer customer) { return "accounts/register-customer"; }
+    public String registerCustomer(@ModelAttribute("customer") Customer customer) {
+        return "accounts/register-customer";
+    }
 
     @PostMapping(value = "/register-customer")
-    public String registerCustomer(@Valid @ModelAttribute("customer")Customer customer, BindingResult result) {
+    public String registerCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result) {
         if (result.hasErrors()) {
             return "accounts/register-customer";
         }
@@ -48,10 +57,12 @@ public class AccountController {
     }
 
     @GetMapping("/register-club")
-    public String registerClub(@ModelAttribute("club") Club club) { return "accounts/register-club"; }
+    public String registerClub(@ModelAttribute("club") Club club) {
+        return "accounts/register-club";
+    }
 
     @PostMapping(value = "/register-club")
-    public String registerClub(@Valid @ModelAttribute("club")Club club, BindingResult result) {
+    public String registerClub(@Valid @ModelAttribute("club") Club club, BindingResult result) {
         if (result.hasErrors()) {
             return "accounts/register-club";
         }
@@ -66,10 +77,12 @@ public class AccountController {
     }
 
     @GetMapping("/login-customer")
-    public String loginCustomer(@ModelAttribute("login") Login login) { return "accounts/login-customer"; }
+    public String loginCustomer(@ModelAttribute("login") Login login) {
+        return "accounts/login-customer";
+    }
 
     @PostMapping(value = "/login-customer")
-    public String loginCustomer(@Valid @ModelAttribute("login")Login login, BindingResult result) {
+    public String loginCustomer(@Valid @ModelAttribute("login") Login login, BindingResult result) {
         if (result.hasErrors()) {
             return "accounts/login-customer";
         }
@@ -87,10 +100,12 @@ public class AccountController {
     }
 
     @GetMapping("/login-club")
-    public String loginClub(@ModelAttribute("club") Club club) { return "accounts/login-club"; }
+    public String loginClub(@ModelAttribute("club") Club club) {
+        return "accounts/login-club";
+    }
 
     @PostMapping(value = "/login-club")
-    public String loginClub(@Valid @ModelAttribute("club")Club club, BindingResult result) {
+    public String loginClub(@Valid @ModelAttribute("club") Club club, BindingResult result) {
         if (result.hasErrors()) {
             return "accounts/login-club";
         }

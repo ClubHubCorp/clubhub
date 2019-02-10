@@ -1,4 +1,4 @@
-<header th:fragment="menu" xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="menu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
         <a class="navbar-brand" href="/">Club Hub</a>
@@ -10,9 +10,17 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbars">
-            <ul class="nav navbar-nav ml-auto">
+            <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="accounts/register">Register</a>
+                    <a class="nav-link" href="/accounts/register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/accounts/login-customer">Login</a>
+                </li>
+            </ul>
+            <ul sec:authorize="isAuthenticated()" class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>

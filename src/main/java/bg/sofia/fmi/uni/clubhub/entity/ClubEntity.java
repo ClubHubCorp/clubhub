@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
-import bg.sofia.fmi.uni.clubhub.model.Drink;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
