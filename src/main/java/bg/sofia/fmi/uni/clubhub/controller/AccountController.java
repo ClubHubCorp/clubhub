@@ -70,7 +70,7 @@ public class AccountController {
     }
 
     @GetMapping("/login-club")
-    public String loginClub(@ModelAttribute("club") Club club) {
+    public String loginClub(@ModelAttribute("login") Login login) {
         return "accounts/login-club";
     }
 }
