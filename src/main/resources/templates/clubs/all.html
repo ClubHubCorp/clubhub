@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"> Name </th>
+            <th scope="col"> Address </th>
+            <th scope="col"> Capacity </th>
+            <th scope="col"> Entrance Fee </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${clubs.empty}">
+            <td colspan="2"> No Clubs Available </td>
+        </tr>
+        <tr th:each="club : ${clubs}">
+            <td th:text="${club.getUsername()}"></td>
+            <td th:text="${club.getAddress()}"></td>
+            <td th:text="${club.getCapacity()}"></td>
+            <td th:text="${club.getEntranceFee()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

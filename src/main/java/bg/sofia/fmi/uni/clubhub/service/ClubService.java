@@ -3,8 +3,10 @@ package bg.sofia.fmi.uni.clubhub.service;
 
 import static bg.sofia.fmi.uni.clubhub.convertion.DataConverter.toModel;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -49,5 +51,10 @@ public class ClubService implements IClubService{
     @Transactional
     public void deleteById(UUID id) {
         clubRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Club> getAllClubs() {
+        return clubRepository.findAll().stream().map(DataConverter::toModel).collect(Collectors.toList());
     }
 }

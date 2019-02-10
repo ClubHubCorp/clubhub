@@ -15,20 +15,16 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Event;
 import bg.sofia.fmi.uni.clubhub.service.IClubService;
 import bg.sofia.fmi.uni.clubhub.service.IEventService;
 
-@RestController
+@Controller
 @RequestMapping(value = "clubs")
 public class ClubController {
 
@@ -74,5 +70,11 @@ public class ClubController {
     @PostMapping(value = "{club_id}/events")
     public ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
         return status(CREATED).body(eventService.createNew(event));
+    }
+
+    @GetMapping(value = "all")
+    public String getAllClubs(Model model) {
+        model.addAttribute("clubs", clubService.getAllClubs());
+        return "clubs/all";
     }
 }
