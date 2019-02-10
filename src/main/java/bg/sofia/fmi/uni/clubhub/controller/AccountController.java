@@ -50,7 +50,7 @@ public class AccountController {
         }
 
         customerService.createNew(customer);
-        return "redirect:/accounts/login-customer";
+        return "redirect:/accounts/login";
     }
 
     @GetMapping("/register-club")
@@ -65,21 +65,11 @@ public class AccountController {
         }
 
         clubService.createNew(club);
-        return "redirect:/accounts/login-club";
+        return "redirect:/accounts/login";
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@ModelAttribute("login") Login login) {
         return "accounts/login";
-    }
-
-    @GetMapping("/login-customer")
-    public String loginCustomer(@ModelAttribute("login") Login login) {
-        return "accounts/login-customer";
-    }
-
-    @GetMapping("/login-club")
-    public String loginClub(@ModelAttribute("login") Login login) {
-        return "accounts/login-club";
     }
 }
