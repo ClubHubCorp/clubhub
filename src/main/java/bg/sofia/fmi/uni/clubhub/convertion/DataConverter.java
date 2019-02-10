@@ -34,7 +34,6 @@ public class DataConverter {
                 entity.getClub().getId(), //
                 entity.getCountOfPeople(), //
                 entity.getDate(), //
-                entity.getLeaderboardPoints(), //
                 entity.getOverallPrice(), //
                 entity.getAttendanceStatus() //
         );
@@ -45,8 +44,7 @@ public class DataConverter {
                 model.getId(), //
                 null, //
                 null, model.getCountOfPeople(), //
-                model.getDate(), //
-                model.getLeaderboardPoints(), //
+                model.getBookingDate(), //
                 model.getOverallPrice(), //
                 model.getAttendanceStatus() //
         );
@@ -110,7 +108,8 @@ public class DataConverter {
                 emptyIfNull(entity.getBookings()), //
                 emptyIfNull(entity.getRatings()), //
                 emptyIfNull(entity.getEvents()), //
-                emptyIfNull(entity.getDiscounts()));
+                emptyIfNull(entity.getDiscounts()), //
+                entity.getLeaderboardPoints());
 
     }
 
@@ -126,7 +125,9 @@ public class DataConverter {
                 emptyIfNull(model.getBookings()), //
                 emptyIfNull(model.getRatings()), //
                 emptyIfNull(model.getEvents()), //
-                emptyIfNull(model.getDiscounts()));
+                emptyIfNull(model.getDiscounts()), //
+                model.getLeaderboardPoints());
+
     }
 
     public static RatingEntity toEntity(Rating model) {

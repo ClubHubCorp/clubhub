@@ -1,11 +1,11 @@
 package bg.sofia.fmi.uni.clubhub.model;
 
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,6 +15,7 @@ import bg.sofia.fmi.uni.clubhub.entity.BookingEntity.AttendanceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @AllArgsConstructor
@@ -31,18 +32,15 @@ public class Booking {
     private final UUID clubId;
 
     @Positive
-    @Min(10)
-    private final int countOfPeople;
+    @Min(1)
+    private final Integer countOfPeople;
 
     @Future
-    private final Date date;
-
-    @PositiveOrZero
-    private final int leaderboardPoints;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private final Date bookingDate;
 
     @Positive
     private BigDecimal overallPrice;
 
-    @NotNull
     private final AttendanceStatus attendanceStatus;
 }

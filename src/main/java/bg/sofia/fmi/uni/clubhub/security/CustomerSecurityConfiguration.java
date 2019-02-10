@@ -31,7 +31,7 @@ public class CustomerSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers("/accounts/login*").permitAll() //
                 .antMatchers("/").permitAll() //
                 .antMatchers("/index").permitAll() //
-                .antMatchers("/h2").permitAll() //
+                .antMatchers("/h2/*").permitAll() //
                 .antMatchers("/accounts/customers").hasRole(CUSTOMER.name()) //
                 .antMatchers("/accounts/clubs").hasRole(CLUB.name()) //
                 .anyRequest().authenticated() //

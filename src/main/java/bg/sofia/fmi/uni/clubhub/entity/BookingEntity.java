@@ -22,6 +22,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "BOOKING")
@@ -55,9 +56,6 @@ public class BookingEntity {
     @Column(name = "date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date date;
-
-    @Column(name = "leaderboard_points", nullable = false)
-    private int leaderboardPoints;
 
     @Column(name = "overall_price", nullable = false)
     private BigDecimal overallPrice;

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -50,10 +51,15 @@ public class ClubEntity extends UserEntity {
         super(id);
     }
 
+    @Column(name = "leaderboard_points", nullable = false)
+    private int leaderboardPoints;
+
+
     public ClubEntity(UUID id, String username, String password, String email, String address, int capacity,
                       BigDecimal entranceFee, Set<BookingEntity> bookings, Set<RatingEntity> ratings, Set<EventEntity> events,
-                      Set<DiscountEntity> discounts) {
+                      Set<DiscountEntity> discounts, int leaderboardPoints) {
         super(id, username, password, email, Role.CLUB);
+
         this.address = address;
         this.capacity = capacity;
         this.entranceFee = entranceFee;
@@ -61,5 +67,7 @@ public class ClubEntity extends UserEntity {
         this.ratings = ratings;
         this.events = events;
         this.discounts = discounts;
+        this.leaderboardPoints = leaderboardPoints;
+
     }
 }

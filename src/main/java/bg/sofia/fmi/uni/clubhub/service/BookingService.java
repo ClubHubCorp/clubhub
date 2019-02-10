@@ -62,13 +62,16 @@ public class BookingService implements IBookingService {
         bookingEntity.setId(UUID.randomUUID());
         bookingEntity.setCustomer(customer.get());
         bookingEntity.setClub(club.get());
+        bookingEntity.setOverallPrice(club.get().getEntranceFee().multiply(new BigDecimal(booking.getCountOfPeople())));
+        bookingEntity.setAttendanceStatus(AttendanceStatus.UPCOMING);
 
         return toModel(bookingRepository.save(bookingEntity));
     }
 
     private void addDiscount(CustomerEntity customer, Booking booking, ClubEntity club) {
         int customerPoints = customer.getLeaderboardPoints();
-        customer.setLeaderboardPoints(customerPoints + booking.getLeaderboardPoints());
+        int leaderboardPoints = clubRepository.findById(club.getId()).get().getLeaderboardPoints();
+        customer.setLeaderboardPoints(customerPoints + leaderboardPoints);
         customerRepository.save(customer);
 
         Optional<Discount> discount = discountService.getAllDiscountForClub(club.getId()).stream() //

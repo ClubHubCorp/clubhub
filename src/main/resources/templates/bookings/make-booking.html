@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" th:action="@{/customers/bookings/make-booking}" th:object="${booking}" method="post">
+                <div class="form-group">
+                    <label path="countOfPeople"> Number of people</label>
+                    <input type="number" class="form-control" id="countOfPeople" name="countOfPeople" th:value="${countOfPeople}" th:errorclass="fieldError">
+                </div>
+                <p th:if="${#fields.hasErrors('countOfPeople')}" th:errors="${countOfPeople}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Number of people
+                </p>
+
+                <div class="form-group">
+                    <label path="bookingDate">Date</label>
+                    <input type="date" class="form-control" id="bookingDate" name="bookingDate" th:value="${bookingDate}" th:errorclass="fieldError">
+                </div>
+                <p th:if="${#fields.hasErrors('bookingDate')}" th:errors="${bookingDate}" class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Date
+                </p>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Make Booking</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

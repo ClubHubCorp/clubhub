@@ -1,11 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.model;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -56,5 +51,8 @@ public class Club {
     private Set<EventEntity> events;
 
     private Set<DiscountEntity> discounts;
+
+    @PositiveOrZero
+    private final Integer leaderboardPoints;
 
 }

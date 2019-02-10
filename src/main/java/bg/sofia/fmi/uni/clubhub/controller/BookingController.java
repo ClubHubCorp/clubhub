@@ -11,23 +11,19 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import bg.sofia.fmi.uni.clubhub.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import bg.sofia.fmi.uni.clubhub.entity.BookingEntity.AttendanceStatus;
 import bg.sofia.fmi.uni.clubhub.model.Booking;
 import bg.sofia.fmi.uni.clubhub.service.BookingService;
 import bg.sofia.fmi.uni.clubhub.service.IBookingService;
 
-@RestController
+@Controller
 @RequestMapping("customers")
 public class BookingController {
 
@@ -79,5 +75,20 @@ public class BookingController {
         return bookingService.cancelByIdForCustomer(bookingID, customerID) //
                 .map(ResponseEntity::ok) //
                 .orElse(notFound().build());
+    }
+
+    @PostMapping(value = "bookings/make-booking")
+    public String makeBooking(@Valid @ModelAttribute("booking")Booking booking, BindingResult result) {
+        if (result.hasErrors()) {
+            return "bookings/make-booking";
+        }
+
+        bookingService.createNew(booking);
+        return "bookings";
+    }
+
+    @GetMapping(value = "bookings/make-booking")
+    public String createBooking(@ModelAttribute("booking")Booking booking) {
+              return "bookings/make-booking";
     }
 }
