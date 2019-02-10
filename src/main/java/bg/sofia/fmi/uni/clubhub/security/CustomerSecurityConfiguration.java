@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@Order(1)
 public class CustomerSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public CustomerSecurityConfiguration() {
         super();

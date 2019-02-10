@@ -6,6 +6,7 @@ import bg.sofia.fmi.uni.clubhub.model.Login;
 import bg.sofia.fmi.uni.clubhub.service.IClubService;
 import bg.sofia.fmi.uni.clubhub.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,7 @@ public class AccountController {
         }
 
         customerService.createNew(customer);
-        return "redirect:/";
+        return "redirect:/accounts/login-customer";
     }
 
     @GetMapping("/register-club")
@@ -85,13 +86,13 @@ public class AccountController {
         return "redirect:/";
     }
 
-    @GetMapping("/register-club")
-    public String loginClub(@ModelAttribute("club") Club club) { return "accounts/register-club"; }
+    @GetMapping("/login-club")
+    public String loginClub(@ModelAttribute("club") Club club) { return "accounts/login-club"; }
 
-    @PostMapping(value = "/register-club")
+    @PostMapping(value = "/login-club")
     public String loginClub(@Valid @ModelAttribute("club")Club club, BindingResult result) {
         if (result.hasErrors()) {
-            return "accounts/register-club";
+            return "accounts/login-club";
         }
 
         clubService.createNew(club);
