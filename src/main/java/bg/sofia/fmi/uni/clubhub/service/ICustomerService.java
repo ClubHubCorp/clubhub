@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import bg.sofia.fmi.uni.clubhub.model.Club;
 import bg.sofia.fmi.uni.clubhub.model.Customer;
-import org.springframework.security.core.userdetails.UserDetails;
 
 public interface ICustomerService {
 
@@ -18,6 +18,8 @@ public interface ICustomerService {
     List<Customer> getAll(PageRequest page);
 
     Customer createNew(Customer customer);
+    
+    List<Customer> getAllCustomersByLeaderboardPoints();
 
     void deleteById(UUID id);
 }
