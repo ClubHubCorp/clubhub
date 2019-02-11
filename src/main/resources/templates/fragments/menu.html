@@ -1,4 +1,4 @@
-<header th:fragment="menu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<header th:fragment="menu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
         <a class="navbar-brand" href="/">Club Hub</a>
@@ -18,16 +18,9 @@
                     <a class="nav-link" href="/accounts/login">Login</a>
                 </li>
             </ul>
-            <ul sec:authorize="isAuthenticated() && hasRole('ROLE_CLUB')" class="dropdown-menu">
-                <li><a href="/events/create-event">Create Event</a></li>
-                <li><a th:href="@{/events/clubs/{clubId}(clubId=${currentUser.getId()})}">Club Events</a></li>
-            </ul>
             <ul sec:authorize="isAuthenticated()" class="nav navbar-nav ml-auto">
             	<li class="nav-item">
                     <a class="nav-link" href="/customers/all">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/clubs/all">Clubs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/clubs/all">Clubs</a>
