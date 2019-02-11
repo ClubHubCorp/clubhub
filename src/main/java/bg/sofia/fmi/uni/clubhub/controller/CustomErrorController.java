@@ -1,7 +1,6 @@
 package bg.sofia.fmi.uni.clubhub.controller;
 
 import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +21,10 @@ public class CustomErrorController implements ErrorController {
 
             if (statusCode == NOT_FOUND.value()) {
                 return "fragments/error-404";
-            } else if (statusCode == INTERNAL_SERVER_ERROR.value()) {
-                return "fragments/error-500";
             }
         }
-        return "error";
+
+        return "fragments/error-500";
     }
 
     @Override

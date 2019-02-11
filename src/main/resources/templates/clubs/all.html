@@ -29,6 +29,9 @@
                         <button type="submit" class="btn btn-info">Events</button>
                     </div>
                 </form>
+                <form class="form-horizontal" th:action="@{/clubs/single/} + ${club.id}" method="get">
+                    <button type="submit" value="Submit" class="btn btn-primary">Visit</button>
+              </form>
             </td>
         </tr>
         </tbody>
