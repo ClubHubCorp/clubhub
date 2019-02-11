@@ -7,6 +7,7 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -60,6 +61,14 @@ public class CustomerService implements ICustomerService {
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 
         return toModel(customerRepository.save(entity));
+    }
+    
+    @Override
+    public List<Customer> getAllCustomersByLeaderboardPoints() {
+        return customerRepository.findAll().stream() //
+        		.map(DataConverter::toModel) //
+        		.sorted((c1, c2)->c2.getLeaderboardPoints().compareTo(c1.getLeaderboardPoints())) //
+        		.collect(Collectors.toList());
     }
 
     @Override
