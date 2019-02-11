@@ -23,6 +23,12 @@
                 <li><a th:href="@{/events/clubs/{clubId}(clubId=${currentUser.getId()})}">Club Events</a></li>
             </ul>
             <ul sec:authorize="isAuthenticated()" class="nav navbar-nav ml-auto">
+            	<li class="nav-item">
+                    <a class="nav-link" href="/customers/all">Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/clubs/all">Clubs</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/clubs/all">Clubs</a>
                 </li>
