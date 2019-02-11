@@ -22,6 +22,11 @@
             <td th:text="${club.getAddress()}"></td>
             <td th:text="${club.getCapacity()}"></td>
             <td th:text="${club.getEntranceFee()}"></td>
+            <td>
+                <form class="form-horizontal" th:action="@{/clubs/single/} + ${club.id}" method="get">
+                    <button type="submit" value="Submit" class="btn btn-primary">Visit</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

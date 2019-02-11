@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container" xmlns:th="http://www.thymeleaf.org">
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" th:action="@{~/ratings/create-rating/} + ${rating.clubId}"
+                  th:object="${rating}" method="post">
+                <div class="form-group">
+                    <label path="score">Score</label>
+                    <input type="text" class="form-control" id="score" name="score" th:value="*{score}"
+                           th:errorclass="score">
+                </div>
+                <p th:if="${#fields.hasErrors('score')}" th:errors="*{score}"
+                   class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Score
+                </p>
+
+                <div class="form-group">
+                    <label path="comment">Comment</label>
+                    <input type="text" class="form-control" id="comment" name="comment" th:value="*{comment}"
+                           th:errorclass="comment">
+                </div>
+                <p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"
+                   class="errors alert alert-danger col-sm-offset-2 col-sm-10">
+                    Incorrect Comment
+                </p>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add Rating</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

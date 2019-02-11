@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container">
+    <div class="text-center">
+        <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center" th:text="${club.address}"></h1>
+        <h3 class="mr-3 pr-3 align-top border-right inline-block align-content-center"
+            th:text="|E-mail: ${club.email}|"></h3>
+        <h3 class="mr-3 pr-3 align-top border-right inline-block align-content-center"
+            th:text="|Capacity: ${club.capacity}|"></h3>
+        <h3 class="mr-3 pr-3 align-top border-right inline-block align-content-center"
+            th:text="|Entrance fee: ${club.entranceFee} lv.|"></h3>
+
+        <h3 class="mr-3 pr-3 align-top border-right inline-block align-content-center"
+            th:text="|Entrance fee: ${club.entranceFee} lv.|"></h3>
+
+        <form class="form-horizontal" th:action="@{~/ratings/clubs/} + ${club.id}" method="get">
+            <button type="submit" value="Submit" class="btn btn-primary">View All Club Ratings</button>
+        </form>
+
+        <div sec:authorize="hasAuthority('CUSTOMER')">
+            <form class="form-horizontal" th:action="@{~/ratings/create-rating/clubs/} + ${club.id}" method="get">
+                <button type="submit" value="Submit" class="btn btn-primary">Create New Rating</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

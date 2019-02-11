@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container">
+    <div id="task-list">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <td>Score</td>
+                <td>Comment</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${ratings.empty}">
+                <td colspan="4">No ratings</td>
+            </tr>
+            <tr th:each="rating : ${ratings}">
+                <td th:text="${rating.score}"></td>
+                <td th:text="${rating.comment}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
