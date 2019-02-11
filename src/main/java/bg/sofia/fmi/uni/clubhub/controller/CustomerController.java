@@ -62,6 +62,6 @@ public class CustomerController {
     @GetMapping(value = "all")
     public String getAllCustomers(Model model) {
         model.addAttribute("customers", customerService.getAllCustomersByLeaderboardPoints());
-        return "customers/all";
+        return "customers/leaderboard";
     }
 }
