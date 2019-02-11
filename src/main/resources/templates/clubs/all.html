@@ -11,6 +11,7 @@
             <th scope="col"> Address </th>
             <th scope="col"> Capacity </th>
             <th scope="col"> Entrance Fee </th>
+            <th scope="col"> Events </th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,13 @@
             <td th:text="${club.getAddress()}"></td>
             <td th:text="${club.getCapacity()}"></td>
             <td th:text="${club.getEntranceFee()}"></td>
+            <td>
+                <form class="form-horizontal" th:action="@{/events/clubs/{clubId}(clubId=${club.getId()})}" method="get">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info">Events</button>
+                    </div>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

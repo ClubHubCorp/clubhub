@@ -14,6 +14,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import bg.sofia.fmi.uni.clubhub.model.Event;
@@ -42,14 +44,25 @@ public class EventController {
         return ok(eventService.getEventsThatContain(word));
     }
 
-    @GetMapping(value = "clubs/{clubId}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Event>> getEventsForClub(@PathVariable("clubId") UUID clubId) {
-        return ok(eventService.getEventsHostedByAClub(clubId));
+    @GetMapping(value = "clubs/{clubId}")
+    public String getEventsForClub(Model model, @PathVariable("clubId") UUID clubId) {
+        model.addAttribute("events", eventService.getEventsHostedByAClub(clubId));
+        return "events/club-events";
     }
 
-    @PostMapping(value = "clubs/{clubId}", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Event> createEvent(@PathVariable("clubId") UUID clubId, @Valid @RequestBody Event event) {
-        return status(CREATED).body(eventService.createNew(event));
+    @GetMapping(value = "create-event")
+    public String createEvent(@ModelAttribute("event") Event event) {
+        return "events/create-event";
+    }
+
+    @PostMapping(value = "create-event")
+    public String createEvent(@Valid @ModelAttribute("event") Event event, BindingResult result) {
+        if (result.hasErrors()) {
+            return "clubs/create-event";
+        }
+
+        eventService.createNew(event);
+        return "redirect:/";
     }
 
     @DeleteMapping("{id}")

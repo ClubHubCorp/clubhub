@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"/>
+<body>
+<header th:replace="fragments/menu :: menu"/>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"> Name </th>
+            <th scope="col"> Date </th>
+            <th scope="col"> Description </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${events.empty}">
+            <td colspan="2"> No Events Available </td>
+        </tr>
+        <tr th:each="event : ${events}">
+            <td th:text="${event.getName()}"></td>
+            <td th:text="${event.getDate()}"></td>
+            <td th:text="${event.getDescription()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
